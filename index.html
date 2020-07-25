@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet'/>
+</head>
+<body>
+<div id='map' style='width: 400px; height: 300px;'></div>
+<script>
+mapboxgl.accessToken = '<access token>';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: '<url to mapstyle>',
+    center: [-83.460322, 42.368072],
+    zoom: 11 });
+
+map.on('load', function() {
+
+    map.addSource('plymouthStreets', {
+        'type': 'geojson',
+        'data': '<url to geojson data>'
+    });
+
+    map.addLayer({
+        'id': 'plymouthStreets',
+        'type': 'line',
+        'source': 'plymouthStreets',
+        'paint': {
+        'line-color': '#888',
+        'line-width': 8
+        },
+        'filter': ['==', '$type', 'LineString']
+        });
+
+});
+</script>
+</body>
+</html>
