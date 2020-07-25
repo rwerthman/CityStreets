@@ -3,35 +3,120 @@
 <head>
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet'/>
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    </style>
 </head>
 <body>
-<div id='map' style='width: 400px; height: 300px;'></div>
+    <style>
+        .map-overlay {
+        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        position: absolute;
+        width: 200px;
+        top: 0;
+        left: 0;
+        padding: 10px;
+        }
+         
+        .map-overlay .map-overlay-inner {
+        background-color: #fff;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        border-radius: 3px;
+        padding: 10px;
+        margin-bottom: 10px;
+        }
+         
+        .map-overlay-inner fieldset {
+        border: none;
+        padding: 0;
+        margin: 0 0 10px;
+        }
+         
+        .map-overlay-inner fieldset:last-child {
+        margin: 0;
+        }
+         
+        .map-overlay-inner select {
+        width: 100%;
+        }
+         
+        .map-overlay-inner label {
+        display: block;
+        font-weight: bold;
+        }
+         
+        .offset > label,
+        .offset > input {
+        display: inline;
+        }
+        </style>
+<div id='map'></div>
+<div class="map-overlay top">
+    <div class="map-overlay-inner">
+    <fieldset>
+    <label>City</label>
+    <select id="city" name="city">
+    <option value="plymouth">Plymouth</option>
+    <option value="northglenn">Northglenn</option>
+    </select>
+    </fieldset>
+    </div>
+</div>
 <script>
-mapboxgl.accessToken = '<access token>';
+mapboxgl.accessToken = 'pk.eyJ1IjoibGF0aXR1ZGU5OCIsImEiOiJja2QxdjE2Ym0xN2lpMnRxcmdtMXYyMXJ6In0.GN-3wmXKPlFb3M86X4wNJw';
 var map = new mapboxgl.Map({
     container: 'map',
-    style: '<url to mapstyle>',
+    style: 'mapbox://styles/latitude98/ckd1vvqgy2e0h1imt9rvcl10u/draft',
     center: [-83.460322, 42.368072],
     zoom: 11 });
 
 map.on('load', function() {
 
-    map.addSource('plymouthStreets', {
+    map.addSource('plymouth', {
         'type': 'geojson',
-        'data': '<url to geojson data>'
-    });
+        'data': 'https://rwerthman.github.io/data/plymouth.geojson' });
 
     map.addLayer({
-        'id': 'plymouthStreets',
+        'id': 'plymouth',
         'type': 'line',
-        'source': 'plymouthStreets',
+        'source': 'plymouth',
         'paint': {
         'line-color': '#888',
-        'line-width': 8
+        'line-width': 2
         },
-        'filter': ['==', '$type', 'LineString']
-        });
+        'filter': ['==', '$type', 'LineString'] });
 
+    map.addSource('northglenn', {
+        'type': 'geojson',
+        'data': 'https://rwerthman.github.io/data/northglenn.geojson' });
+
+    map.addLayer({
+        'id': 'northglenn',
+        'type': 'line',
+        'source': 'northglenn',
+        'paint': {
+        'line-color': '#888',
+        'line-width': 2
+        },
+        'filter': ['==', '$type', 'LineString'] });
+});
+
+var cities = document.getElementById('city');
+
+cities.addEventListener('change', function() {
+    switch( this.value ) {
+        case "plymouth":
+            map.flyTo({
+                center: [-83.460322, 42.368072],
+                zoom: 11 });
+            break;
+        case "northglenn":
+            map.flyTo({
+                center: [-104.981222, 39.897122],
+                zoom: 11 });
+            break;
+    }
 });
 </script>
 </body>
