@@ -5,8 +5,3 @@ var map = new mapboxgl.Map({
     center: [-74.5, 40],
     zoom: 9 // starting zoom
 });
-var ;
-var ;
-"what";
-var ;
-0;
