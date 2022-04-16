@@ -1,0 +1,23 @@
+{
+  "name": "citystreets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rwerthman/CityStreets.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rwerthman/CityStreets/issues"
+  },
+  "homepage": "https://github.com/rwerthman/CityStreets#readme",
+  "devDependencies": {
+    "@types/mapbox-gl": "^2.7.0",
+    "typescript": "^4.6.3"
+  }
+}
