@@ -9,3 +9,21 @@ body {
     bottom: 0;
     width: 100%; 
 }
+
+input:invalid {
+    border: 2px solid red;
+}
+
+input:valid {
+    border: 2px solid green;
+}
+
+input:invalid + span::before {
+    content: '\2716';
+    color: red;
+}
+  
+input:valid + span::before {
+    content: '\2713';
+    color: green;
+}

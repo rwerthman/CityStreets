@@ -52,12 +52,15 @@ map.on('load', () => {
             { clicked: true }
         );
 
+        const expectedStreetName = e.features[0].properties.name;
+        const streetNameElement = document.getElementById('streetName') as HTMLInputElement;
+        streetNameElement.pattern = expectedStreetName;
+
         // Add a popup to the road when it is clicked
-        const name = e.features[0].properties.name;
         const popup = new mapboxgl.Popup()
             .setLngLat(e.lngLat)
-            .setHTML(name)
-            .addTo(map);        
+            .setHTML(expectedStreetName)
+            .addTo(map);
     });
 
     // Change the cursor to a pointer when the it enters a feature in the 'plymouth_roads' layer.

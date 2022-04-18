@@ -37,11 +37,13 @@ map.on('load', function () {
         clickedStateId = e.features[0].id;
         // Change the color of a clicked road so it stands out        
         map.setFeatureState({ source: 'plymouth_roads', id: clickedStateId }, { clicked: true });
+        var expectedStreetName = e.features[0].properties.name;
+        var streetNameElement = document.getElementById('streetName');
+        streetNameElement.pattern = expectedStreetName;
         // Add a popup to the road when it is clicked
-        var name = e.features[0].properties.name;
         var popup = new mapboxgl.Popup()
             .setLngLat(e.lngLat)
-            .setHTML(name)
+            .setHTML(expectedStreetName)
             .addTo(map);
     });
     // Change the cursor to a pointer when the it enters a feature in the 'plymouth_roads' layer.
