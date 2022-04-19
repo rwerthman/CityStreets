@@ -6,6 +6,7 @@ var map = new mapboxgl.Map({
     zoom: 14 // starting zoom
 });
 var clickedStateId = null;
+var popup = new mapboxgl.Popup();
 map.on('load', function () {
     map.addSource('plymouth_roads', {
         type: 'geojson',
@@ -40,11 +41,12 @@ map.on('load', function () {
         var expectedStreetName = e.features[0].properties.name;
         var streetNameElement = document.getElementById('streetName');
         streetNameElement.pattern = expectedStreetName;
-        // Add a popup to the road when it is clicked
-        var popup = new mapboxgl.Popup()
-            .setLngLat(e.lngLat)
-            .setHTML(expectedStreetName)
-            .addTo(map);
+        // Add a popup to the road when the hint button is clicked to help the user
+        // figure out what the answer is
+        popup.setLngLat(e.lngLat).setHTML(expectedStreetName);
+        document.getElementById('hint').onclick = function () {
+            popup.addTo(map);
+        };
     });
     // Change the cursor to a pointer when the it enters a feature in the 'plymouth_roads' layer.
     map.on('mouseenter', 'plymouth_roads', function () {

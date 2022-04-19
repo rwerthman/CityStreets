@@ -7,6 +7,7 @@ const map = new mapboxgl.Map({
 });
 
 let clickedStateId = null;
+const popup = new mapboxgl.Popup()
 
 map.on('load', () => {
     
@@ -56,11 +57,13 @@ map.on('load', () => {
         const streetNameElement = document.getElementById('streetName') as HTMLInputElement;
         streetNameElement.pattern = expectedStreetName;
 
-        // Add a popup to the road when it is clicked
-        const popup = new mapboxgl.Popup()
-            .setLngLat(e.lngLat)
-            .setHTML(expectedStreetName)
-            .addTo(map);
+        // Add a popup to the road when the hint button is clicked to help the user
+        // figure out what the answer is
+        popup.setLngLat(e.lngLat).setHTML(expectedStreetName);
+
+        document.getElementById('hint').onclick = function () {
+            popup.addTo(map);
+        }
     });
 
     // Change the cursor to a pointer when the it enters a feature in the 'plymouth_roads' layer.
