@@ -14,16 +14,16 @@ input:invalid {
     border: 2px solid red;
 }
 
-input:valid {
+input.valid {
     border: 2px solid green;
 }
 
-input:invalid + span::before {
+input.invalid + span::before {
     content: '\2716';
     color: red;
 }
   
-input:valid + span::before {
+input.valid + span::before {
     content: '\2713';
     color: green;
 }
